@@ -29,6 +29,7 @@ export default function HomePage() {
     axiosInstance.get("/api/auth/check").then((res) => {
       if (res.data) setUser(res.data);
     });
+    // seedProducts()
   }, [setUser]);
 
   useEffect(() => {
@@ -49,6 +50,70 @@ export default function HomePage() {
 
     fetchProducts();
   }, [setProducts]);
+
+  const seedProducts = async () => {
+    const sampleProducts = [
+      {
+        sku: "ELEC001",
+        name: "Wireless Mouse",
+        category: "Electronics",
+        quantity: 25,
+        lowStockThreshold: 10,
+      },
+      {
+        sku: "APP001",
+        name: "Denim Jacket",
+        category: "Apparel",
+        quantity: 15,
+        lowStockThreshold: 5,
+      },
+      {
+        sku: "STAT001",
+        name: "Notebook Set",
+        category: "Stationery",
+        quantity: 50,
+        lowStockThreshold: 20,
+      },
+      {
+        sku: "FURN001",
+        name: "Office Chair",
+        category: "Furniture",
+        quantity: 5,
+        lowStockThreshold: 3,
+      },
+      {
+        sku: "ACC001",
+        name: "Laptop Sleeve",
+        category: "Accessories",
+        quantity: 30,
+        lowStockThreshold: 10,
+      },
+      {
+        sku: "ELEC002",
+        name: "Bluetooth Speaker",
+        category: "Electronics",
+        quantity: 12,
+        lowStockThreshold: 5,
+      },
+      {
+        sku: "STAT002",
+        name: "Pen Set",
+        category: "Stationery",
+        quantity: 100,
+        lowStockThreshold: 30,
+      },
+    ];
+
+    try {
+      for (const product of sampleProducts) {
+        await axiosInstance.post("/api/product/addProduct", product);
+      }
+      toast.success("Sample products inserted successfully!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to insert sample products.");
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -95,6 +160,9 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-slate-100 p-4">
+        <h1 className="text-2xl font-bold mb-5">
+         Isaii.AI MERN Stack Intern Task
+          </h1>
       {/* Top Controls */}
       <div className="flex flex-wrap items-center gap-3 mb-6">
         {/* Search */}
@@ -163,6 +231,8 @@ export default function HomePage() {
       })
       .map((prod) => {
         const isLow = prod.quantity < prod.lowStockThreshold;
+        const isAdmin = user?.role === "admin";
+
         return (
           <tr
             key={prod._id}
@@ -173,11 +243,35 @@ export default function HomePage() {
             <td className="p-3">{prod.category}</td>
             <td className="p-3">{prod.quantity}</td>
             <td className="p-3 space-x-2">
-              <button onClick={() => openModal("update", prod._id)}>
-                <FiEdit className="inline text-blue-600 hover:text-blue-800" />
+              <button
+                onClick={() => isAdmin && openModal("update", prod._id)}
+                className={`${
+                  !isAdmin ? "cursor-not-allowed opacity-50" : ""
+                }`}
+                disabled={!isAdmin}
+              >
+                <FiEdit
+                  className={`inline ${
+                    isAdmin
+                      ? "text-blue-600 hover:text-blue-800"
+                      : "text-gray-400"
+                  }`}
+                />
               </button>
-              <button onClick={() => openModal("delete", prod._id)}>
-                <FiTrash2 className="inline text-red-600 hover:text-red-800" />
+              <button
+                onClick={() => isAdmin && openModal("delete", prod._id)}
+                className={`${
+                  !isAdmin ? "cursor-not-allowed opacity-50" : ""
+                }`}
+                disabled={!isAdmin}
+              >
+                <FiTrash2
+                  className={`inline ${
+                    isAdmin
+                      ? "text-red-600 hover:text-red-800"
+                      : "text-gray-400"
+                  }`}
+                />
               </button>
             </td>
           </tr>
@@ -191,6 +285,7 @@ export default function HomePage() {
     </tr>
   )}
 </tbody>
+
 
         </table>
       </div>
