@@ -2,25 +2,26 @@ import { useEffect, useState } from 'react'
 import { useInventoryStore } from '../stores/useInventoryStore.js'
 import axios from 'axios'
 import { FiX } from 'react-icons/fi'
+import { axiosInstance } from '../axios.js'
 
 export default function UpdateProductModal({ productId }) {
-  const { closeModal, setProducts } = useInventoryStore()
+  const { closeModal, setProducts, products } = useInventoryStore()
   const [form, setForm] = useState({})
 
   useEffect(() => {
-    axios.get(`/api/product/getById/${productId}`)
+    axiosInstance.get(`/api/product/getById/${productId}`)
       .then(res => setForm(res.data.data))
-  }, [productId])
+  }, [productId, products])
 
   const handleSave = async () => {
-    await axios.put(`/api/product/update/${productId}`, form)
-    const res = await axios.get('/api/product/get/all')
+    await axiosInstance.put(`/api/product/update/${productId}`, form)
+    const res = await axiosInstance.get('/api/product/get/all')
     setProducts(res.data.data)
     closeModal('update')
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-base-200/60 backdrop-blur-sm flex items-center justify-center">
       <div className="bg-white w-96 p-6 rounded shadow-lg overflow-auto max-h-full">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold">Update Product</h3>

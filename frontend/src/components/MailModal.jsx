@@ -5,7 +5,7 @@ export default function MailModal() {
   const { closeModal } = useInventoryStore()
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-base-200/60 backdrop-blur-sm flex items-center justify-center">
       <div className="bg-white w-96 p-6 rounded shadow-lg">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold">Send Mail</h3>

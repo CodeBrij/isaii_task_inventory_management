@@ -34,13 +34,13 @@ productRouter.post("/addProduct", jwtAuth(), async (req, res) => {
     }
 
     const product = new Product(req.body);
-    await Product.save();
+    await product.save();
 
     res
       .status(201)
       .json({ message: "Product added successfully", data: product });
   } catch (error) {
-    console.error("Error adding inventory:", error);
+    console.error("Error adding product:", error);
     res
       .status(500)
       .json({ message: "Internal server error", error: error.message });
@@ -91,7 +91,7 @@ productRouter.put("/update/:id", jwtAuth([ROLES.ADMIN]), async (req, res) => {
       .status(200)
       .json({
         message: "Product updated successfully",
-        data: updatedInventory,
+        data: updatedProduct,
       });
   } catch (error) {
     console.error("Error updating product:", error);
@@ -112,7 +112,7 @@ productRouter.delete("/delete/:id",jwtAuth([ROLES.ADMIN]), async (req, res) => {
 
     const deletedProduct = await Product.findByIdAndDelete(id);
     if (!deletedProduct) {
-      return res.status(404).json({ message: "Inventory not found" });
+      return res.status(404).json({ message: "Product not found" });
     }
 
     res.status(200).json({ 
@@ -132,15 +132,15 @@ productRouter.get("/get/all",jwtAuth(), async (req, res) => {
   }
 
     try {
-      const products = await InventoryModel.find();
+      const products = await Product.find();
   
       if (products.length === 0) {
-        return res.status(404).json({ message: 'No inventory items found' });
+        return res.status(404).json({ message: 'No product items found' });
       }
   
-      res.status(200).json({ message: 'Inventory fetched successfully', data: products });
+      res.status(200).json({ message: 'Products fetched successfully', data: products });
     } catch (error) {
-      console.error('Error fetching inventory:', error);
+      console.error('Error fetching products:', error);
       res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 });
