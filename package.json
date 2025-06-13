@@ -1,0 +1,23 @@
+{
+  "name": "isai-task",
+  "version": "1.0.0",
+  "description": "A simple and effective inventory management platform built with the MERN stack. It allows users to manage product stock, monitor low inventory, and maintain operational control with secure user roles.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "npm run start --prefix backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeBrij/isaii_task_inventory_management.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/CodeBrij/isaii_task_inventory_management/issues"
+  },
+  "homepage": "https://github.com/CodeBrij/isaii_task_inventory_management#readme"
+}
