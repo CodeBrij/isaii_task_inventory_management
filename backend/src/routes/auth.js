@@ -1,7 +1,8 @@
 import express from "express";
-import User from "../models/user";
+import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
+import jwtAuth from "../middleware/jwtAuth.js";
 
 const authRoute = express.Router();
 const generateToken = (userId) => jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "1d" });

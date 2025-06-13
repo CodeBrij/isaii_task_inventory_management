@@ -1,9 +1,14 @@
 import express from "express";
-import Product from "../models/product";
+import Product from "../models/product.js";
+import jwtAuth from "../middleware/jwtAuth.js";
 
 const productRouter = express.Router();
 
 // add, update, delete, fetch
+const ROLES = {
+  ADMIN: 'admin',
+  USER: 'user'
+};
 
 productRouter.post("/addProduct", jwtAuth(), async (req, res) => {
   try {

@@ -1,10 +1,10 @@
 import express from "express";
 import cors from "cors";
-import connectDB from "./config/config";
-import User from "./models/user";
-import Product from "./models/product";
-import authRoute from "./routes/auth";
-import productRouter from "./routes/product";
+import connectDB from "./config/config.js";
+import authRoute from "./routes/auth.js";
+import productRouter from "./routes/product.js";
+import dotenv from "dotenv"
+dotenv.config();
 
 const app = express();
 app.use(cors({
@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/auth", authRoute);
-app.use("/product", productRouter);
+app.use("/api/product", productRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
