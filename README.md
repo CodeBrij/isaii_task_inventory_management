@@ -62,7 +62,7 @@ A simple and effective inventory management platform built with the MERN stack. 
 - **Frontend**: React, Tailwind CSS
 - **Backend**: Node.js, Express
 - **Database**: MongoDB
-- **Authentication**: JWT-based auth
+- **Authentication**: JWT-based auth, Bcrypt for encryption
 - **Export**: SheetJS (xlsx), FileSaver.js
 
 ---
@@ -71,11 +71,11 @@ A simple and effective inventory management platform built with the MERN stack. 
 
 ```bash
 # Backend
-cd server
+cd backend
 npm install
-npm run dev
+npm start
 
 # Frontend
-cd client
+cd frontend
 npm install
 npm run dev
