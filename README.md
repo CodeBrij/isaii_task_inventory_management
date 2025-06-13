@@ -62,6 +62,7 @@ A simple and effective inventory management platform built with the MERN stack. 
 - **Frontend**: React, Tailwind CSS
 - **Backend**: Node.js, Express
 - **Database**: MongoDB
+- **State Management**: Zustand
 - **Authentication**: JWT-based auth, Bcrypt for encryption
 - **Export**: SheetJS (xlsx), FileSaver.js
 
